@@ -64,7 +64,19 @@ namespace PersonalizedTrayIcon
         private static TrayIcon ParseIconSection(SectionData sectionData)
         {
             var trayIcon = new TrayIcon();
-            trayIcon.IconPath = sectionData.Keys["Icon"];
+            var keys = sectionData.Keys;
+
+            if (!keys.ContainsKey("Icon"))
+            {
+                throw new ConfigurationException("Missing required field for icon section: Icon");
+            }
+
+            if (!keys.ContainsKey("Exec"))
+            {
+                throw new ConfigurationException("Missing required field for icon section: Exec");
+            }
+            
+            trayIcon.IconPath = keys["Icon"];
             trayIcon.ExecPath = sectionData.Keys["Exec"];
             return trayIcon;
         }
