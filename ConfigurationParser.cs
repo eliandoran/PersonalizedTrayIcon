@@ -15,6 +15,9 @@ namespace PersonalizedTrayIcon
         private const string EXCEPTION_MISSING_SECTIONS = "There must be at least one icon section defined in the configuration.";
         private const string EXCEPTION_MISSING_FIELD = "The section '{0}' is missing the following field: '{1}'.";
 
+        private const string ICON_FIELD_ICON_PATH = "Icon";
+        private const string ICON_FIELD_EXEC_PATH = "Exec";
+
         public static UserConfiguration FromFile(string filePath)
         {
             if (!File.Exists(filePath))
@@ -71,20 +74,20 @@ namespace PersonalizedTrayIcon
             var trayIcon = new TrayIcon();
             var keys = sectionData.Keys;
 
-            if (!keys.ContainsKey("Icon"))
+            if (!keys.ContainsKey(ICON_FIELD_ICON_PATH))
             {
-                var message = string.Format(EXCEPTION_MISSING_FIELD, sectionData.SectionName, "Icon");
+                var message = string.Format(EXCEPTION_MISSING_FIELD, sectionData.SectionName, ICON_FIELD_ICON_PATH);
                 throw new ConfigurationException(message);
             }
 
-            if (!keys.ContainsKey("Exec"))
+            if (!keys.ContainsKey(ICON_FIELD_EXEC_PATH))
             {
-                var message = string.Format(EXCEPTION_MISSING_FIELD, sectionData.SectionName, "Exec");
+                var message = string.Format(EXCEPTION_MISSING_FIELD, sectionData.SectionName, ICON_FIELD_EXEC_PATH);
                 throw new ConfigurationException(message);
             }
             
-            trayIcon.IconPath = keys["Icon"];
-            trayIcon.ExecPath = sectionData.Keys["Exec"];
+            trayIcon.IconPath = keys[ICON_FIELD_ICON_PATH];
+            trayIcon.ExecPath = sectionData.Keys[ICON_FIELD_EXEC_PATH];
             return trayIcon;
         }
 
