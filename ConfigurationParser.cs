@@ -90,7 +90,7 @@ namespace PersonalizedTrayIcon
             }
 
             trayIcon.Icon = LoadIcon(keys[ICON_FIELD_ICON_PATH]);
-            trayIcon.ExecPath = sectionData.Keys[ICON_FIELD_EXEC_PATH];
+            SetExecData(trayIcon, sectionData.Keys[ICON_FIELD_EXEC_PATH]);
             return trayIcon;
         }
 
@@ -103,6 +103,23 @@ namespace PersonalizedTrayIcon
             }
 
             return new Icon(iconPath, SystemInformation.SmallIconSize);
+        }
+
+        private static void SetExecData(TrayIcon trayIcon, string commandLine)
+        {
+            var fullArgs = NativeUtils.CommandLineToArgs(commandLine);
+            var exec = fullArgs[0];
+            var args = new string[0];
+            
+            if (fullArgs.Length > 1)
+            {
+                var argc = fullArgs.Length - 1;
+                args = new string[argc];
+                Array.Copy(fullArgs, 1, args, 0, argc);
+            }
+
+            trayIcon.ExecFile = exec;
+            trayIcon.ExecArguments = args;
         }
 
     }

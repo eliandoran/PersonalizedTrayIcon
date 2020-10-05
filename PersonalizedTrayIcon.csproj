@@ -53,6 +53,7 @@
     <Compile Include="Model\ConfigurationException.cs" />
     <Compile Include="Model\TrayIcon.cs" />
     <Compile Include="Model\UserConfiguration.cs" />
+    <Compile Include="NativeUtils.cs" />
     <Compile Include="NotifyIconBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
