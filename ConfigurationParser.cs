@@ -10,11 +10,16 @@ namespace PersonalizedTrayIcon
 {
     public static class ConfigurationParser
     {
+        private const string EXCEPTION_FILE_NOT_FOUND = "Configuration file '{0}' does not exist.";
+        private const string EXCEPTION_IO_ERROR = "Unable to read the configuration file due to an input/output error.";
+        private const string EXCEPTION_MISSING_SECTIONS = "There must be at least one icon section defined in the configuration.";
+        private const string EXCEPTION_MISSING_FIELD = "The section '{0}' is missing the following field: '{1}'.";
+
         public static UserConfiguration FromFile(string filePath)
         {
             if (!File.Exists(filePath))
             {
-                var message = string.Format("Configuration file '{0}' does not exist.", filePath);
+                var message = string.Format(EXCEPTION_FILE_NOT_FOUND, filePath);
                 throw new ConfigurationException(message);
             }
 
@@ -26,7 +31,7 @@ namespace PersonalizedTrayIcon
             }
             catch (IOException e)
             {
-                throw new ConfigurationException("Unable to read the configuration file due to an input/output error.", e);
+                throw new ConfigurationException(EXCEPTION_IO_ERROR, e);
             }
             finally
             {
@@ -47,7 +52,7 @@ namespace PersonalizedTrayIcon
             // Fail if there are no defined sections.
             if (ini.Sections.Count == 0)
             {
-                throw new ConfigurationException("There must be at least one icon section defined in the configuration.");
+                throw new ConfigurationException(EXCEPTION_MISSING_SECTIONS);
             }
             
             foreach (var section in ini.Sections)
@@ -68,12 +73,14 @@ namespace PersonalizedTrayIcon
 
             if (!keys.ContainsKey("Icon"))
             {
-                throw new ConfigurationException("Missing required field for icon section: Icon");
+                var message = string.Format(EXCEPTION_MISSING_FIELD, sectionData.SectionName, "Icon");
+                throw new ConfigurationException(message);
             }
 
             if (!keys.ContainsKey("Exec"))
             {
-                throw new ConfigurationException("Missing required field for icon section: Exec");
+                var message = string.Format(EXCEPTION_MISSING_FIELD, sectionData.SectionName, "Exec");
+                throw new ConfigurationException(message);
             }
             
             trayIcon.IconPath = keys["Icon"];
