@@ -17,6 +17,7 @@ namespace PersonalizedTrayIcon
             {
                 var notifyIcon = new NotifyIcon();
                 notifyIcon.Icon = iconData.Icon;
+                notifyIcon.Tag = iconData;
 
                 icons.Add(notifyIcon);
             }
