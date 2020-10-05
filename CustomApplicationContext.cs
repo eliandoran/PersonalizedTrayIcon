@@ -13,15 +13,7 @@ namespace PersonalizedTrayIcon
 
         public CustomApplicationContext()
         {
-            try
-            {
-                var config = ConfigurationParser.FromFile(CONFIG_PATH);
-
-            }
-            catch (ConfigurationException e)
-            {
-                MessageBox.Show(e.Message, "Personalized Tray Icon", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            var config = ConfigurationParser.FromFile(CONFIG_PATH);                
         }
 
     }

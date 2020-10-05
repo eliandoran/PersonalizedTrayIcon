@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Windows.Forms;
 
 namespace PersonalizedTrayIcon
@@ -14,7 +15,17 @@ namespace PersonalizedTrayIcon
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CustomApplicationContext());
+
+            try
+            {
+                var context = new CustomApplicationContext();
+                Application.Run(context);
+            }
+            catch (Model.ConfigurationException e)
+            {
+                MessageBox.Show(e.Message, "Personalized Tray Icon", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }            
         }
     }
 }
