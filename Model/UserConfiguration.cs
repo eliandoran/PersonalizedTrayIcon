@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PersonalizedTrayIcon.Model
 {
-    class UserConfiguration
+    public class UserConfiguration
     {
 
         public List<TrayIcon> Icons;

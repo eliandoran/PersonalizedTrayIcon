@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PersonalizedTrayIcon.Model
 {
-    class TrayIcon
+    public class TrayIcon
     {
 
         public string IconPath { get; set; }

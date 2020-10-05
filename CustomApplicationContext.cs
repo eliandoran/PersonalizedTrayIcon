@@ -10,7 +10,16 @@ namespace PersonalizedTrayIcon
 
         public CustomApplicationContext()
         {
+            var config = @"[RecycleBin]
+Icon = RecycleBin.ico
+Exec = start shell:RecycleBinFolder
 
+[Shutdown]
+Icon = Shutdown.ico
+Exec = shutdown /s /t 0
+";
+
+            var data = ConfigurationParser.ParseConfiguration(config);
         }
 
     }
