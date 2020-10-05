@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 
 namespace PersonalizedTrayIcon.Model
 {
     public class TrayIcon
     {
-
-        public string IconPath { get; set; }
+        
+        public Icon Icon { get; set; }
 
         public string ExecPath { get; set; }
 

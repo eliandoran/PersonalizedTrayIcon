@@ -3,6 +3,7 @@ using IniParser.Model;
 using PersonalizedTrayIcon.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 
@@ -14,6 +15,7 @@ namespace PersonalizedTrayIcon
         private const string EXCEPTION_IO_ERROR = "Unable to read the configuration file due to an input/output error.";
         private const string EXCEPTION_MISSING_SECTIONS = "There must be at least one icon section defined in the configuration.";
         private const string EXCEPTION_MISSING_FIELD = "The section '{0}' is missing the following field: '{1}'.";
+        private const string EXCEPTION_ICON_NOT_FOUND = "Icon file '{0}' does not exist.";
 
         private const string ICON_FIELD_ICON_PATH = "Icon";
         private const string ICON_FIELD_EXEC_PATH = "Exec";
@@ -85,10 +87,21 @@ namespace PersonalizedTrayIcon
                 var message = string.Format(EXCEPTION_MISSING_FIELD, sectionData.SectionName, ICON_FIELD_EXEC_PATH);
                 throw new ConfigurationException(message);
             }
-            
-            trayIcon.IconPath = keys[ICON_FIELD_ICON_PATH];
+
+            trayIcon.Icon = LoadIcon(keys[ICON_FIELD_ICON_PATH]);
             trayIcon.ExecPath = sectionData.Keys[ICON_FIELD_EXEC_PATH];
             return trayIcon;
+        }
+
+        private static Icon LoadIcon(string iconPath)
+        {
+            if (!File.Exists(iconPath))
+            {
+                var message = string.Format(EXCEPTION_ICON_NOT_FOUND, iconPath);
+                throw new ConfigurationException(message);
+            }
+
+            return new Icon(iconPath);
         }
 
     }

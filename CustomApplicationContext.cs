@@ -13,7 +13,7 @@ namespace PersonalizedTrayIcon
 
         public CustomApplicationContext()
         {
-            var config = ConfigurationParser.FromFile(CONFIG_PATH);                
+            var config = ConfigurationParser.FromFile(CONFIG_PATH);
         }
 
     }
