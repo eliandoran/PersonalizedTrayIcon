@@ -43,6 +43,12 @@ namespace PersonalizedTrayIcon
             var parser = new StreamIniDataParser();
             var ini = parser.ReadData(reader);
             var icons = new List<TrayIcon>();
+
+            // Fail if there are no defined sections.
+            if (ini.Sections.Count == 0)
+            {
+                throw new ConfigurationException("There must be at least one icon section defined in the configuration.");
+            }
             
             foreach (var section in ini.Sections)
             {
