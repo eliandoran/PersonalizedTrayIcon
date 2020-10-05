@@ -13,7 +13,17 @@ namespace PersonalizedTrayIcon
 
         public CustomApplicationContext()
         {
-            var config = ConfigurationParser.FromFile(CONFIG_PATH);
+            var configuration = ConfigurationParser.FromFile(CONFIG_PATH);
+            var icons = NotifyIconBuilder.FromConfiguration(configuration);
+            ShowIcons(icons);
+        }
+
+        private void ShowIcons(List<NotifyIcon> icons)
+        {
+            foreach (var icon in icons)
+            {
+                icon.Visible = true;
+            }
         }
 
     }
