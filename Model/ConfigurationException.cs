@@ -12,5 +12,10 @@ namespace PersonalizedTrayIcon.Model
 
         }
 
+        public ConfigurationException(string message, Exception innerException) : base(message, innerException)
+        {
+
+        }
+
     }
 }

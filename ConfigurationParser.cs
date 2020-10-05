@@ -18,16 +18,33 @@ namespace PersonalizedTrayIcon
                 throw new ConfigurationException(message);
             }
 
-            return null;
+            FileStream file = null;
+            try
+            {
+                file = File.OpenRead(filePath);
+                return FromStream(file);
+            }
+            catch (IOException e)
+            {
+                throw new ConfigurationException("Unable to read the configuration file due to an input/output error.", e);
+            }
+            finally
+            {
+                if (file != null)
+                {
+                    file.Dispose();
+                }
+            }            
         }
 
-        public static UserConfiguration FromString(string iniData)
+        public static UserConfiguration FromStream(FileStream fileStream)
         {
-            var parser = new StringIniParser();
-            var sections = parser.ParseString(iniData).Sections;
+            var reader = new StreamReader(fileStream);
+            var parser = new StreamIniDataParser();
+            var ini = parser.ReadData(reader);
             var icons = new List<TrayIcon>();
             
-            foreach (var section in sections)
+            foreach (var section in ini.Sections)
             {
                 var trayIcon = ParseIconSection(section);
                 icons.Add(trayIcon);

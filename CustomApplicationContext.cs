@@ -15,7 +15,8 @@ namespace PersonalizedTrayIcon
         {
             try
             {
-                ConfigurationParser.FromFile(CONFIG_PATH);
+                var config = ConfigurationParser.FromFile(CONFIG_PATH);
+
             }
             catch (ConfigurationException e)
             {
