@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 
 namespace PersonalizedTrayIcon
 {
@@ -101,7 +102,7 @@ namespace PersonalizedTrayIcon
                 throw new ConfigurationException(message);
             }
 
-            return new Icon(iconPath);
+            return new Icon(iconPath, SystemInformation.SmallIconSize);
         }
 
     }
