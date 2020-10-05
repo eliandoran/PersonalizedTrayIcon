@@ -45,12 +45,6 @@
   <ItemGroup>
     <Compile Include="ConfigurationParser.cs" />
     <Compile Include="CustomApplicationContext.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\ConfigurationException.cs" />
     <Compile Include="Model\TrayIcon.cs" />
     <Compile Include="Model\UserConfiguration.cs" />
