@@ -51,6 +51,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\ConfigurationException.cs" />
     <Compile Include="Model\TrayIcon.cs" />
     <Compile Include="Model\UserConfiguration.cs" />
     <Compile Include="Program.cs" />

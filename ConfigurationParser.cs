@@ -3,14 +3,25 @@ using IniParser.Model;
 using PersonalizedTrayIcon.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace PersonalizedTrayIcon
 {
     public static class ConfigurationParser
     {
+        public static UserConfiguration FromFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                var message = string.Format("Configuration file '{0}' does not exist.", filePath);
+                throw new ConfigurationException(message);
+            }
 
-        public static UserConfiguration ParseConfiguration(string iniData)
+            return null;
+        }
+
+        public static UserConfiguration FromString(string iniData)
         {
             var parser = new StringIniParser();
             var sections = parser.ParseString(iniData).Sections;

@@ -1,25 +1,26 @@
-﻿using System;
+﻿using PersonalizedTrayIcon.Model;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
 namespace PersonalizedTrayIcon
-{
+{    
     class CustomApplicationContext: ApplicationContext
     {
+        private const string CONFIG_PATH = "PersonalizedTrayIcon.ini";
 
         public CustomApplicationContext()
         {
-            var config = @"[RecycleBin]
-Icon = RecycleBin.ico
-Exec = start shell:RecycleBinFolder
-
-[Shutdown]
-Icon = Shutdown.ico
-Exec = shutdown /s /t 0
-";
-
-            var data = ConfigurationParser.ParseConfiguration(config);
+            try
+            {
+                ConfigurationParser.FromFile(CONFIG_PATH);
+            }
+            catch (ConfigurationException e)
+            {
+                MessageBox.Show(e.Message, "Personalized Tray Icon", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
     }
